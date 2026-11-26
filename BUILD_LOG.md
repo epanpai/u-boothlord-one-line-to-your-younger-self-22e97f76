@@ -74,4 +74,85 @@ concert" (0 hit tapi kalah personal dibanding memori ibu).
   u-boothlord-one-line-to-your-younger-self-22e97f76-kit/ (sibling, di
   luar repo). RULES.txt 294 baris dibaca seluruhnya.
 - Repo GitHub publik epanpai/u-boothlord-one-line-to-your-younger-self-22e97f76
-  dibuat SETELAH buka, push via gh HTTPS (login epanpai).
+  dibuat SETELAH buka, push via gh HTTPS (login epanpai). Topik
+  "makefun" ter-set (gh repo edit). Commit ac05aa6 (awal) + 237e527
+  (revisi main.py + koreksi BUILD_LOG ini), keduanya ter-push.
+
+## Check kit v1 (26 Nov 17:19 WIB / 10:19 UTC)
+
+- Bundle: ~/workspace/makefun/submit/u-boothlord-one-line-to-your-younger-self-22e97f76-transcripts-v1.tar.gz
+  (103.730 byte, sha256 fbfcaeee9e76d356e47b1b38cf29fd957e7c2955a29314eebfa7e5d1149591bb),
+  satu sesi builder saja (--no-discover --no-family --session <file sesi ini>),
+  prompt-file ~/workspace/makefun/submit/u-boothlord-one-line-to-your-younger-self-22e97f76-prompt.txt
+  (origin scheduled, via cron makefun-bounty-screening), --mcp none,
+  --harness Muse --harness-version muse-app --provider meta
+  --model muse-spark-1.3 --effort default. System prompt ter-upload dari
+  ~/workspace/system/system_prompt.md, instruction files collected (AGENTS.md).
+  Bundle pertama GAGAL karena --effort belum diisi; retry dengan
+  --effort default berhasil.
+- `check`: 12 passed, 2 failed, 5 skipped, 5 checked at submission.
+  thinking_reproduces LOLOS 62,3% authored (68/109; main.py 8 authored
+  lines); thinking_own_work LOLOS; transcripts_run_record LOLOS;
+  thinking_turns LOLOS (24 turns); thinking_in_window LOLOS (semua
+  73 timestamp di dalam jendela buka); competition_open LOLOS.
+  Repo: PUBLIC, dibuat setelah buka, homepage + topic makefun terisi,
+  commit ac05aa6 sudah push.
+- Dua FAIL: thinking_priced (0 usage rows) dan thinking_revised
+  (main.py dari 1 pesan). thinking_revised diperbaiki dengan revisi
+  komentar em dash (lihat Program di atas).
+
+## Check kit v2 (26 Nov 17:20 WIB / 10:20 UTC)
+
+- Bundle v2: ~/workspace/makefun/submit/u-boothlord-one-line-to-your-younger-self-22e97f76-transcripts-v2.tar.gz
+  (110.788 byte, sha256 96ceb566fc5dc4098602e216db6717081f015562c3616b2f5179f0741233736d).
+- `check`: 13 passed, 1 failed, 5 skipped, 5 checked at submission.
+  thinking_revised LOLOS (main.py dari 2 pesan). Satu FAIL tersisa —
+  thinking_priced (0 usage rows).
+
+## Kuota (26 Nov 17:18 WIB)
+
+- GET /api/competitions/u-boothlord-one-line-to-your-younger-self-22e97f76/quota: can_submit TRUE,
+  entries_made 0, day cap 5 tersisa 5 (limit 50 tersisa 50),
+  hard limit 40 tersisa 40. Blind round slot tersedia s/d
+  2026-11-26T13:43:12.666Z (20:43 WIB). Deadline 27 Nov 12:45 WIB.
+
+## STATUS: BELUM SUBMIT — menunggu parent (usage rows)
+
+- Satu FAIL tersisa — thinking_priced (0 usage rows). Ini TIDAK BISA
+  diperbaiki dari dalam sesi subagent ini: row usage Muse ditulis hanya
+  setelah run subagent selesai (pola yang sama seperti entry #186–#189).
+  SELECT yang dijalankan builder 10:21 UTC hanya mengembalikan 1 row
+  milik PARENT (747c4b09-b850-45f2-8901-9d6cc3732179, model
+  ipnext/avocado-5.17-v2), BUKAN builder — row builder belum ditulis
+  saat itu. Parent harus menjalankan SELECT lagi SETELAH run subagent
+  ini selesai, dan hanya row builder (99dbed2e-bf72-4c3f-95ee-c5c05bf35aad)
+  yang terpasang ke bundle (row parent bukan sesi yang di-bundle).
+  SELECT-nya:
+  SELECT u.agent_id AS agent_id, u.message_id AS message_id,
+  u.created_at AS created_at, u.input_tokens AS input_tokens,
+  u.output_tokens AS output_tokens, a.model AS model
+  FROM agent.agent_message_token_usage u
+  JOIN agent.agents a ON a.agent_id = u.agent_id
+  WHERE u.agent_id IN ('99dbed2e-bf72-4c3f-95ee-c5c05bf35aad',
+  '747c4b09-b850-45f2-8901-9d6cc3732179')
+  ORDER BY u.created_at DESC LIMIT 500
+  -> tulis ke ~/workspace/makefun/submit/u-boothlord-one-line-to-your-younger-self-22e97f76-muse-usage.jsonl
+  (jangan potong file; bundle membuang row dari sebelum build).
+- Sesi builder: /home/hatch/agents/agent-99dbed2e-bf72-4c3f-95ee-c5c05bf35aad/sessions/99dbed2e-bf72-4c3f-95ee-c5c05bf35aad.jsonl
+- Lanjutan oleh parent: (1) muse.db SELECT di atas ->
+  u-boothlord-one-line-to-your-younger-self-22e97f76-muse-usage.jsonl,
+  (2) re-bundle (tambah --muse-usage <file>, flag lain sama seperti v2) ->
+  ~/workspace/makefun/submit/u-boothlord-one-line-to-your-younger-self-22e97f76-transcripts-v3.tar.gz,
+  (3) re-check (harapan: 14 pass / 0 fail, 5 skip, 5 at submission),
+  (4) kuota re-cek (can_submit harus tetap true),
+  (5) submit: node cli/makefun.mjs submit --competition
+  u-boothlord-one-line-to-your-younger-self-22e97f76 --repo-url
+  https://github.com/epanpai/u-boothlord-one-line-to-your-younger-self-22e97f76
+  --commit 237e527c123e487dfe917e192fb432f7cdc7d252 --title
+  "One Line to Your Younger Self — mum, sunscreen, haircut" --bundle <v3>
+  --keypair ~/workspace/makefun/makefun-keypair.json
+  (MAKEFUN_API_KEY dari connect-token.json field 'key'; entry GRATIS —
+  bila submit menagih fee, BERHENTI).
+  (6) simpan receipt ke ~/workspace/makefun/submit/receipt-<submission-id>.json
+  (mode 600). Blind round 1 cutoff 26 Nov 20:43 WIB — submit sebelum
+  itu agar masuk ronde 1; deadline 27 Nov 12:45 WIB.
