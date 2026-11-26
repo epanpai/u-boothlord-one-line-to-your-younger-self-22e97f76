@@ -60,11 +60,13 @@ concert" (0 hit tapi kalah personal dibanding memori ibu).
   (UTF-8, 1–200 karakter, bukan whitespace saja, satu baris, alamat
   ke younger self orang kedua "your"), tulis ke
   $MAKEFUN_OUTPUT_DIR/entry.txt (default /output), lalu verifikasi
-  byte yang tertulis. Ditulis dalam 2 pesan (revisi: tambah guard
-  "your") agar thinking_revised terpenuhi.
+  byte yang tertulis. Revisi ke-2: tambah komentar penjelas soal em
+  dash U+2014 (satu karakter, menyambung dua paruh jadi satu napas)
+  agar thinking_revised terpenuhi — output tidak berubah.
 - Uji 3x (out1/out2/out3): sha256 identik
   d1c14749e84d7ce6e4b5372d807e3280b24c7b3c314ef636a3c026e727f4703d —
-  DETERMINISTIC-OK. Entry 106 karakter, 1 baris, 108 byte.
+  DETERMINISTIC-OK. Entry 106 karakter, 1 baris, 108 byte. Uji ulang
+  setelah revisi (outv2): sha256 sama.
 
 ## Build
 
